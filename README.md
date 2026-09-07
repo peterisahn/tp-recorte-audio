@@ -1,6 +1,6 @@
 # TD V - Diseño de Algoritmos: *TP Recorte de Audio*
 
-Repositorio con la **implementación, experimentación** y **análisis comparativo** del problema de *Recorte de Audio* para la materia TD-V.
+Repositorio con la **implementación, experimentación** y **análisis comparativo** del problema de *Recorte de Audio* para la materia TD V.
 
 ## Contenido
 
