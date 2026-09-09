@@ -25,7 +25,7 @@ float pd (const Instancia& instancia, int j, int t, vector<vector<float>>& memo)
     if (t>j){
         return numeric_limits<float>::infinity();
     }else{
-        // Caso general: tomamos t pulsos, de j pulsos (t<j)
+        // Si t==2, tomamos el primer y el último pulso j (con t<j)
         if (t==2){
             return instancia.costo(1,j);
         }

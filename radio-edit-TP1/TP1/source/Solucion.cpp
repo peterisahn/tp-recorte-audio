@@ -1,6 +1,7 @@
 #include "Solucion.h"
-
 #include "Instancia.h"
+#include <iostream>
+#include <fstream>
 #include <vector>
 using namespace std;
 
@@ -42,61 +43,38 @@ double Solucion::costo(const Instancia& instancia) const {
     return costo_total;
 }
 
-// Armamos funciones auxiliares con las condiciones que tiene que cumplir 'instancia' para que sea válida
+bool Solucion::esValida(const Instancia& instancia) const {
+    // Para que sea considerado una solución válida debe cumplir:
+    // - El tamaño de la solución debe ser exactamente k
+    // - El primer pulso y el último deben mantenerse
+    // - Los índices en _indices deben estar ordenados
 
-bool primer_y_ultimo_ordenados(const vector<int> &indices, int n){
-
-     if ( indices[0] == 0 and indices[indices.size()-1] == n){
-        return true;
-     }else{
+    // Tiene tamaño k la solución
+    if (cantidad() != instancia.k()) {
         return false;
-     }
-}
+    }
 
-bool esta_ordenado (const vector<int> &indices){
-    int i = 0;
-    while (i<indices.size()){
-        if (indices[i]<indices[i+1]){
-            i+=1;
-        }else{
+    // El primer índice siempre es 1
+    if (_indices[0] != 1) {
+        return false;
+    }
+
+    // El último pulso de la instancia original debe mantenerse
+    if (_indices[cantidad() - 1] != instancia.n()) {
+        return false;
+    }
+    for (int i = 0; i < cantidad() - 1; i++) {
+        if (_indices[i] >= _indices[i + 1]) {
             return false;
         }
     }
+
+    // Si cumple todas estas condiciones, devuelve true
     return true;
 }
 
-bool Solucion::esValida(const Instancia& instancia) const {
-    // Para que sea considerado una solución válida debe cumplir:
-    // - El primer pulso y el último deben mantenerse
-    // - El tamaño de la solución debe ser exactamente k
-    // - Los índices en _indices deben estar ordenados
-
-    if (primer_y_ultimo_ordenados(_indices, instancia.n()-1) and _indices.size() == instancia.k() and esta_ordenado(_indices)){
-        return true;
-    }
-    return false;
-}
-
-// bool Solucion::esValida(const Instancia& instancia) const {
-//     if (cantidad() != instancia.k()) {
-//         return false;
-//     }
-//     if (_indices[0] != 1) {
-//         return false;
-//     }
-//     if (_indices[cantidad() - 1] != instancia.n()) {
-//         return false;
-//     }
-//     for (int i = 0; i < cantidad() - 1; i++) {
-//         if (_indices[i] >= _indices[i + 1]) {
-//             return false;
-//         }
-//     }
-//     return true;
-// }
-
 void Solucion::imprimir(const Instancia& instancia) const {
-
+    // Imprime la solución (los índices)
     cout << "Seleccion: ";
     for (int i = 0; i < cantidad(); i++) {
         cout << _indices[i];
@@ -105,10 +83,13 @@ void Solucion::imprimir(const Instancia& instancia) const {
         }
     }
     cout << "\n";
+    // Imprime el costo total de la solución 
     cout << "Costo: " << costo(instancia) << "\n";
 }
 
 void Solucion::guardar(const std::string& ruta) const {
+    // Escribe la seleección de indices (solución) en un archivo de texto, en la ruta 
+    // que se pasa como parámetro
     ofstream archivo(ruta);
     for (int i = 0; i < cantidad(); i++) {
         archivo << _indices[i];

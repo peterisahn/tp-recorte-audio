@@ -64,7 +64,7 @@ double Instancia::costo(int i, int j) const {
     // Recorremos en un loop las características de ambos pulsos i,j
     for (int m = 0; m < _d ; m++) {
         // Hacemos la resta componente a componente
-        double dif = _features[i+1][m] - _features[j][m]; 
+        double dif = _features[i][m] - _features[j-1][m]; 
         // Elevamos al cuadrado la diferencia
         dif = dif * dif;
         // Actualizamos la sumatoria
