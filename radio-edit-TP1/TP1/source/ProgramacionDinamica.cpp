@@ -1,11 +1,44 @@
 #include "ProgramacionDinamica.h"
-#include <vector>
+#include <vector> 
 #include <limits>
+#include <algorithm>
 
 using namespace std;
 
 Solucion reconstruir_solucion_pd (const Instancia& instancia, vector<vector<float>> memo, float costo_min, int n, int k){
+    // Como vamos a recorrer el memo desde la posición n,k (ult posición) y recorremos hacia arriba a la izquierda
+    // los indices van a estar desordenados. Entonces guardamos temporalmente los indices en un vector y luego lo copiamos a solución
+    vector<int> indices = {};
+
+    // Inicializamos las variables j,t
+    int j = n;
+    int t = k;
+
+    // Recorremos hasta que lleguemos a la posición 0,0
+    while (j!=0 and t!=0){
+        // Si la posición j,t tiene costo igual que la posición j-1, t-1 más el costo de ir desde t-1 hasta t
+        // Entonces quiere decir que se usó el pulso t en la solución
+        if (memo[j][t]== memo[j-1][t-1]+instancia.costo(t-1, t)){
+            indices.push_back(t);
+            j--;
+            t--;
+        }
+        // En cambio si tiene el mismo costo que la posición n-1, t quiere decir que el t-ésimo pulso no se está usando
+        if (memo[j][t] == memo[j-1][t]){
+            j--;
+            t--;
+        }
+    }
+
+    // Ordenamos los índices de menor a mayor 
+    sort(indices.begin(), indices.end());
+
+    // Copiamos los índices a solución
     Solucion solucion;
+    for (int indice : indices){
+        solucion.agregar(indice);
+    }
+
     return solucion;
 }
 
@@ -21,10 +54,12 @@ float pd (const Instancia& instancia, int j, int t, vector<vector<float>>& memo)
     // aclaración: j,t son variables (índices) que representan sub-instancias del problema original n,k respectivamente
 
     // Casos base:
+    // Si t>j:
     // Si se quiere tomar t pulsos, de j pulsos totales tal que t>j -> es imposible. Devolvemos infinito
     if (t>j){
         return numeric_limits<float>::infinity();
     }else{
+        // Si t<j:
         // Si t==2, tomamos el primer y el último pulso j (con t<j)
         if (t==2){
             return instancia.costo(1,j);
@@ -69,12 +104,6 @@ Solucion ProgramacionDinamica::resolver(const Instancia& instancia) {
     
     // Creamos el memo de tamaño (n+1, k+1) = (filas, columnas), inicializando las celdas en -1.0, que quiere decir que todavía no las visitamos
     vector<vector<float>> memo(n+1, vector<float>(k+1, -1.0));
-
-    // Rellenamos en el memo con los valores que ya sabemos su costo:
-    // Si n > 2 y k=2, el costo va a ser la suma de los costos del primer y último pulso
-    for (int i=2; i<=n; i++){
-        memo[i][2] = instancia.costo(1,i);
-    }
 
     // Llamamos a un función auxiliar que devuelve el costo mínimo para k pulsos usando pd
     float costo_min = pd (instancia, n, k, memo);

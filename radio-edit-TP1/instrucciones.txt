@@ -1,0 +1,3 @@
+Para compilar: g++ -std=c++17 -O2 -o radioedit source/main.cpp source/FuerzaBruta.cpp source/Instancia.cpp source/Solucion.cpp source/ProgramacionDinamica.cpp source/Backtracking.cpp
+Para correr: cd TP1
+Luego: radioedit --instancia input\ejemplo.txt --algoritmo fb
