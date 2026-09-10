@@ -66,7 +66,7 @@ float pd (const Instancia& instancia, int j, int t, vector<vector<float>>& memo,
     // Inicializamos una variable que guarde el índice del pulso desde cuyo costo hacia el siguiente sea el mínimo
     int guardar_pos = -1;
     // Para cada i (i<j) que puede elegir de los pulsos restantes hasta la posición j (actual), usando t-1 pulsos (el pulso t es el que va desde i hasta j)
-    for (int i = 2; i< j-1; i++){
+    for (int i = 2; i< j; i++){
         // Guardamos en la celda el mínimo entre lo que ya estaba guardado en la celda (inicialmente infinito), con lo que
         // te devuelve la recursión usando t-1 pulsos hasta el pulso i, más el costo de ir desde i hasta j
         float nuevo_res = minimo(res, pd(instancia, i, t-1, memo, padre)+instancia.costo(i,j));
