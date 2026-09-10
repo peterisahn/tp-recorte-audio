@@ -1,17 +1,12 @@
 #include "FuerzaBruta.h"
 
 Solucion fb(const Instancia& instancia, Solucion solucion_actual, Solucion solucion_mejor, int k, int i) {
-    
-    // Caso base: ya decidimos sobre todos los pulsos intermedios
-    if (i>=instancia.n()){
-        // Agregamos el último pulso, que se conserva siempre
+
+    // Caso base: la solucion_actual tiene k-1 pulsos. El último pulso tiene que ser n, como en el original
+    if (solucion_actual.cantidad() == k-1) {
+        // Agregamos el último pulso
         solucion_actual.agregar(instancia.n());
 
-        // Caso base: Si la solucion_actual no tiene k pulsos no sirve como solución y devolvemos la mejor solución
-        if (solucion_actual.cantidad() != k) {
-            return solucion_mejor;
-        }
-        
         // Si solucion_mejor estaba vacía, devolvemos solucion_actual
         if (solucion_mejor.cantidad() == 0){
             return solucion_actual;
@@ -25,6 +20,12 @@ Solucion fb(const Instancia& instancia, Solucion solucion_actual, Solucion soluc
         return solucion_mejor;
     }
 
+    // Caso base: no quedan pulsos intermedios para probar
+    if (i>=instancia.n()){
+        return solucion_mejor;
+    }
+
+
     // Paso recursivo:
     // Para cada nodo del árbol recursivo hay 2 opciones: agregar/ no agregar el iésimo pulso 
     Solucion agregar_pulso_i = solucion_actual; //Creamos una solución parcial donde agregamos el pulso i. Solucion_actual se mantiene igual
@@ -34,22 +35,3 @@ Solucion fb(const Instancia& instancia, Solucion solucion_actual, Solucion soluc
    
     return solucion_mejor;
 }
-
-Solucion FuerzaBruta::resolver(const Instancia& instancia) {
-    // Inicalizamos las variables globales que vamos a usar en la recursión
-    Solucion solucion_actual; 
-    Solucion solucion_mejor;
-
-    // Agregamos el primer pulso, ya que debe mantenerse como en el original
-    solucion_actual.agregar(1);
-    // Creamos la variable entera k, que va a ser pasada como parámetro de la función pd
-    int k = instancia.k();
-    // Empezamos a recorrer el algoritmo de Fuerza Bruta desde el índice 2
-    int i = 2;
-
-    // Llamamos una función auxiliar que resuelve el problema usando fb
-    solucion_mejor = fb (instancia, solucion_actual, solucion_mejor, k, i);
-    
-    return solucion_mejor;
-}
- 
