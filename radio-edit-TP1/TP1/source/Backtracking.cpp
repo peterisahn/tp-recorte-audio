@@ -121,7 +121,6 @@ Solucion bt(const Instancia& instancia, Solucion solucion_actual, Solucion soluc
     return solucion_mejor;
 }
 
-
 Solucion Backtracking::resolver(const Instancia& instancia) {
     Solucion solucion_actual;
     Solucion solucion_mejor;
