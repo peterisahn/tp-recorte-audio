@@ -2,26 +2,25 @@
 
 Solucion fb(const Instancia& instancia, Solucion solucion_actual, Solucion solucion_mejor, int k, int i) {
     
-    // Caso base: ya decidimos sobre todos los pulsos intermedios
-    if (i>=instancia.n()){
-        // Agregamos el último pulso, que se conserva siempre
+    // Caso base: la solucion_actual tiene k-1 pulsos. El último pulso tiene que ser n, como en el original
+    if (solucion_actual.cantidad() == k-1) {
+        // Agregamos el último pulso
         solucion_actual.agregar(instancia.n());
 
-        // Caso base: Si la solucion_actual no tiene k pulsos no sirve como solución y devolvemos la mejor solución
-        if (solucion_actual.cantidad() != k) {
-            return solucion_mejor;
-        }
-        
         // Si solucion_mejor estaba vacía, devolvemos solucion_actual
         if (solucion_mejor.cantidad() == 0){
             return solucion_actual;
         }
-
         // Comparamos si el costo de la solución actual es menor que la mejor solución encontrada hasta el momento
         if (solucion_actual.costo(instancia) < solucion_mejor.costo(instancia)){
             // Actualizamos solucion_mejor
             solucion_mejor = solucion_actual;
         }
+        return solucion_mejor;
+    }
+    
+    // Caso base: no quedan pulsos intermedios para probar
+    if (i>=instancia.n()){
         return solucion_mejor;
     }
 

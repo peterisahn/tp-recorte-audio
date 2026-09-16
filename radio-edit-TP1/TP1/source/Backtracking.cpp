@@ -17,10 +17,7 @@ Solucion bt(const Instancia& instancia, Solucion solucion_actual, Solucion soluc
         }
         return solucion_mejor;
     }
-    // Poda por Factibilidad: Ya elegimos demasiados pulsos y todavía falta agregar obligatoriamente el último
-    if (solucion_actual.cantidad() >= k) {
-        return solucion_mejor;
-    }
+
     // Poda por Factibilidad: Vemos si quedan suficientes pulsos intermedios para poder llegar a una solución de tamaño k
     int faltan_elegir = k - solucion_actual.cantidad() - 1;
     int disponibles = instancia.n() - i;
