@@ -95,8 +95,7 @@ void Solucion::imprimir(const Instancia& instancia) const {
 
 void Solucion::guardar(const std::string& ruta) const {
     // Escribe la seleección de indices (solución) en un archivo de texto, en la ruta
-    // que se pasa como parámetro. Es el formato que pide el enunciado, una única
-    // línea con los k enteros indexados desde 1, y es lo que consume reconstruir.py.
+    // que se pasa como parámetro
     ofstream archivo(ruta);
     if (!archivo.is_open()) {
         cerr << "Atencion: no se pudo escribir el archivo de salida " << ruta << "\n";
@@ -111,3 +110,4 @@ void Solucion::guardar(const std::string& ruta) const {
     }
     archivo << "\n";
 }
+

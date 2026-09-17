@@ -1,0 +1,14 @@
+archivo,familia,n,d,k,semilla,costo_optimo,descripcion
+ale_n08_d01_k04.txt,aleatoria,8,1,4,1,,"uniforme en [0,1)^1, independiente por pulso"
+ale_n10_d03_k05.txt,aleatoria,10,3,5,2,,"uniforme en [0,1)^3, independiente por pulso"
+ale_n12_d12_k06.txt,aleatoria,12,12,6,3,,"uniforme en [0,1)^12, independiente por pulso"
+ale_n12_d01_k03.txt,aleatoria,12,1,3,4,,"uniforme en [0,1)^1, independiente por pulso"
+ale_n14_d02_k07.txt,aleatoria,14,2,7,5,,"uniforme en [0,1)^2, independiente por pulso"
+ale_n16_d12_k08.txt,aleatoria,16,12,8,6,,"uniforme en [0,1)^12, independiente por pulso"
+est_ABBCBB_m2_desc1.txt,estructurada,12,4,10,11,0.0,ABBCBB de 2 pulsos; descarta los bloques [1]
+est_ABBCBB_m2_desc2.txt,estructurada,12,4,8,12,0.0,"ABBCBB de 2 pulsos; descarta los bloques [1, 4]"
+est_ABBCBB_m3_desc1.txt,estructurada,18,12,15,13,0.0,ABBCBB de 3 pulsos; descarta los bloques [1]
+est_ABBA_m2_desc1.txt,estructurada,8,3,6,14,0.0,ABBA de 2 pulsos; descarta los bloques [1]
+borde_n02_d01.txt,borde,2,1,2,21,0.0,unica seleccion factible
+borde_k2_n10_d03.txt,borde,10,3,2,22,0.8324367783801963,unica seleccion factible
+borde_kn_n08_d02.txt,borde,8,2,8,23,0.0,unica seleccion factible

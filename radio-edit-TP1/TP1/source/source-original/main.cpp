@@ -12,11 +12,6 @@
 #include "ProgramacionDinamica.h"
 #include "Solucion.h"
 
-#ifdef INSTRUMENTAR
-extern long long nodos_fb;
-extern long long nodos_bt, disparos_factibilidad, disparos_optimalidad;
-#endif
-
 std::unique_ptr<Algoritmo> crearAlgoritmo(const std::string& algoritmo) {
     if (algoritmo == "fb") return std::unique_ptr<Algoritmo>(new FuerzaBruta());
     if (algoritmo == "bt") return std::unique_ptr<Algoritmo>(new Backtracking());
@@ -57,11 +52,6 @@ void resolverInstancia(const std::string& rutaEntrada, const std::string& algori
     }
 
     solucion.imprimir(instancia);
-#ifdef INSTRUMENTAR
-    std::cout << "Nodos: " << (algoritmo == "fb" ? nodos_fb : nodos_bt) << "\n";
-    std::cout << "PodaFactibilidad: " << disparos_factibilidad
-              << " PodaOptimalidad: " << disparos_optimalidad << "\n";
-#endif
     std::cout << "Tiempo: " << ms << " ms\n";
 
     std::string rutaSalida = rutaSalidaPedida.empty()

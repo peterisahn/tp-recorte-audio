@@ -1,16 +1,8 @@
 #include "Backtracking.h"
 
-#ifdef INSTRUMENTAR
-// Contadores para la experimentación (make instrumentado). No se compilan en ./radioedit.
-long long nodos_bt = 0, disparos_factibilidad = 0, disparos_optimalidad = 0;
-#endif
-
 Solucion bt(const Instancia& instancia, Solucion solucion_actual, Solucion solucion_mejor, int k, int i) {
-#ifdef INSTRUMENTAR
-    nodos_bt++;
-#endif
 
-    // Ya elegimos k-1 pulsos (El último pulso debe ser necesariamente n)
+    // Ya elegimos k-1 pulsos (El último pulso debe ser necesariamente n-1)
     if (solucion_actual.cantidad() == k - 1) {
 
         solucion_actual.agregar(instancia.n());
@@ -27,25 +19,15 @@ Solucion bt(const Instancia& instancia, Solucion solucion_actual, Solucion soluc
     }
 
     // Poda por Factibilidad: Vemos si quedan suficientes pulsos intermedios para poder llegar a una solución de tamaño k
-#ifndef SIN_PODA_FACTIBILIDAD
     int faltan_elegir = k - solucion_actual.cantidad() - 1;
     int disponibles = instancia.n() - i;
     if (faltan_elegir > disponibles) {
-#ifdef INSTRUMENTAR
-        disparos_factibilidad++;
-#endif
         return solucion_mejor;
     }
-#endif
     // Poda por Optimalidad: Si ya existe una solución completa y el costo parcial actual ya es igual o mayor, esta rama nunca podrá mejorarla
-#ifndef SIN_PODA_OPTIMALIDAD
     if (solucion_mejor.cantidad() != 0 && solucion_actual.costo(instancia) >= solucion_mejor.costo(instancia)) {
-#ifdef INSTRUMENTAR
-        disparos_optimalidad++;
-#endif
         return solucion_mejor;
     }
-#endif
 
     // Ya no quedan pulsos intermedios para probar
     if (i >= instancia.n()) {

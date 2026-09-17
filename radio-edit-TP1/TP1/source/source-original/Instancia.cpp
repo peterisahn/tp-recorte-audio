@@ -24,8 +24,8 @@ void Instancia::cargar(const std::string& ruta) {
         throw runtime_error("Formato invalido: se esperaba 'n d k' en la primera linea de " + ruta);
     }
 
-    // Hacen falta al menos dos pulsos, porque el primero y el último se conservan siempre
-    // por lo mismo k >= 2, y no se pueden conservar más pulsos de los que existen
+    // Hacen falta al menos dos pulsos porque el primero y el último se conservan siempre
+    // , por lo mismo k >= 2, y no se pueden conservar más pulsos de los que existen
     if (_n < 2) {
         throw runtime_error("La instancia debe tener al menos 2 pulsos (n >= 2).");
     }
@@ -40,12 +40,11 @@ void Instancia::cargar(const std::string& ruta) {
 
     // Recorremos en un loop los n pulsos que vamos a ir llenando en _features
     // A su vez cada pulso vamos llenando con sus características que correspondan
-
     for (int i = 0; i < _n; i++) {
         vector<double> pulso;  // Inicialiamos el vector pulso vacío
         for (int m = 0; m < _d; m++) {
             double valor;
-        
+           
             if (!(archivo >> valor)) {
                 throw runtime_error("Faltan caracteristicas en " + ruta + ": se esperaban " +
                                     to_string(_n * _d) + " valores.");

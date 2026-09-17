@@ -67,7 +67,7 @@ double pd (const Instancia& instancia, int j, int t, vector<vector<double>>& mem
     // Inicializamos la variable de retorno res en infinito, que almacena los valores que van a ir en cada celda y finalmente
     // de la celda de interés: memo[n][k]
     // Si ya visitamos la celda j,t , pero no es posible esa combinación (por ej. t>j), entonces devuelve infinito
-    double res = numeric_limits<double>::infinity();
+    double res = numeric_limits<float>::infinity();
     // Inicializamos una variable que guarde el índice del pulso desde cuyo costo hacia el siguiente sea el mínimo
     int guardar_pos = -1;
     // Para cada i (i<j) que puede elegir de los pulsos restantes hasta la posición j (actual), usando t-1 pulsos (el pulso t es el que va desde i hasta j)
@@ -104,7 +104,7 @@ Solucion ProgramacionDinamica::resolver(const Instancia& instancia) {
 
     // Llamamos a un función auxiliar que devuelve el costo mínimo para k pulsos usando pd. Además va guardando en 'indices' los indices
     // a medida que construye la solución (por eso se pasa 'inidices' como referencia en la función)
-    pd (instancia, n, k, memo, padre);
+   pd (instancia, n, k, memo, padre);
 
     // Llamamos a una función auxiliar, que reconstruye la solución (los índices) a partir del memo
     solucion = reconstruir_solucion_pd (padre, n, k);

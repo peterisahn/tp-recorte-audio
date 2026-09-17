@@ -14,6 +14,7 @@ public:
     void limpiar();
 
     const std::vector<int>& indices() const;
+    
     int cantidad() const;
 
     double costo(const Instancia& instancia) const;

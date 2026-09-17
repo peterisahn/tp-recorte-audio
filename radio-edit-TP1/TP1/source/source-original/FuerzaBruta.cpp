@@ -1,14 +1,6 @@
 #include "FuerzaBruta.h"
 
-#ifdef INSTRUMENTAR
-// Contador de nodos para la experimentación (make instrumentado). No se compila en ./radioedit.
-long long nodos_fb = 0;
-#endif
-
 Solucion fb(const Instancia& instancia, Solucion solucion_actual, Solucion solucion_mejor, int k, int i) {
-#ifdef INSTRUMENTAR
-    nodos_fb++;
-#endif
     
     // Caso base: la solucion_actual tiene k-1 pulsos. El último pulso tiene que ser n, como en el original
     if (solucion_actual.cantidad() == k-1) {
@@ -49,7 +41,7 @@ Solucion FuerzaBruta::resolver(const Instancia& instancia) {
 
     // Agregamos el primer pulso, ya que debe mantenerse como en el original
     solucion_actual.agregar(1);
-    // Creamos la variable entera k, que va a ser pasada como parámetro de la función fb
+    // Creamos la variable entera k, que va a ser pasada como parámetro de la función pd
     int k = instancia.k();
     // Empezamos a recorrer el algoritmo de Fuerza Bruta desde el índice 2
     int i = 2;
@@ -59,3 +51,4 @@ Solucion FuerzaBruta::resolver(const Instancia& instancia) {
     
     return solucion_mejor;
 }
+ 
